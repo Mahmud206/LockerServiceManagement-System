@@ -37,7 +37,11 @@ public class LSDRWRALLOCATController {
         LSDRWRALLOCATLDto lsdrwrrelResponse = lsdrwrrelService.updateDrawerAllocation(lsdrwrallocatDto, ACTNUM);
         return new ResponseEntity<>(lsdrwrrelResponse, HttpStatus.OK);
     }
-    
+    @DeleteMapping("/{ACTNUM}")
+    public ResponseEntity<String> deleteLSDRWRALLOCATLById(@PathVariable(name="ACTNUM") String ACTNUM){
+        lsdrwrrelService.deleteLSDRWRALLOCATLById(ACTNUM);
+        return new ResponseEntity<>("Locker entity deleted successfully.", HttpStatus.OK);
+    }
 
 
 }
