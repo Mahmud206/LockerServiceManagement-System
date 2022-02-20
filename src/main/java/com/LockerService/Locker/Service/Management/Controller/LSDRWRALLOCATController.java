@@ -26,4 +26,11 @@ public class LSDRWRALLOCATController {
     public ResponseEntity<LSDRWRALLOCATDto> getDrawerAllocateByAccountNumber(@PathVariable(name = "ACTNUM") String ACTNUM){
         return ResponseEntity.ok(lsdrwrallocatService.getDrawerAllocateByAccountNo(ACTNUM));
     }
+
+    @PostMapping("/Allocate")
+    public ResponseEntity<LSDRWRALLOCATLDto> createDrawerAllocation(@RequestBody LSDRWRALLOCATLDto lsdrwrallocatDto){
+        return new ResponseEntity<>(lsdrwrrelService.createDrawerAllocation(lsdrwrallocatDto), HttpStatus.CREATED);
+    }
+
+
 }
