@@ -42,4 +42,30 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
         LSDRWRALLOCATDto lsdrwrallocatDto = mapper.map(lsdrwrallocatEntity, LSDRWRALLOCATDto.class);
         return lsdrwrallocatDto;
     }
+    @Override
+    public LSDRWRALLOCATDto createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto) {
+        LSDRWRALLOCATEntity lsdrwrallocatEntity= mapToEntity(lsdrwrallocatDto);
+        LSDRWRALLOCATEntity newlsdrwrrel=lsdrwrallocatRepo.save(lsdrwrallocatEntity);
+        LSDRWRALLOCATDto lsdrwrrelResponse = mapToDTO(newlsdrwrrel);
+        return lsdrwrrelResponse;
+    }
+
+    @Override
+    public LSDRWRALLOCATDto updateDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto,String ACTNUM) {
+         LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.findById(ACTNUM).orElseThrow(() ->new ResourceNotFoundException("LSDRWRALLOCATEntity","ACTNUM",ACTNUM));
+        lsdrwrallocatEntity.setBRANCD(lsdrwrallocatDto.getBRANCD());
+        lsdrwrallocatEntity.setACTTIT(lsdrwrallocatDto.getACTTIT());
+        lsdrwrallocatEntity.setACTYPE(lsdrwrallocatDto.getACTYPE());
+        lsdrwrallocatEntity.setACTNUM(lsdrwrallocatDto.getACTNUM());
+        lsdrwrallocatEntity.setCUSCOD(lsdrwrallocatDto.getCUSCOD());
+        lsdrwrallocatEntity.setPRDCOD(lsdrwrallocatDto.getPRDCOD());
+        lsdrwrallocatEntity.setSALEVAL(lsdrwrallocatDto.getSALEVAL());
+        lsdrwrallocatEntity.setMARKETVAL(lsdrwrallocatDto.getMARKETVAL());
+        lsdrwrallocatEntity.setCAUTIONAMT(lsdrwrallocatDto.getCAUTIONAMT());
+        lsdrwrallocatEntity.setALLOCATDATE(lsdrwrallocatDto.getALLOCATDATE());
+        lsdrwrallocatEntity.setEXPDATE(lsdrwrallocatDto.getEXPDATE());
+        lsdrwrallocatEntity.setREMARKS(lsdrwrallocatDto.getREMARKS());
+         LSDRWRALLOCATEntity updateDrawerAllocation = lsdrwrallocatRepo.save(lsdrwrallocatEntity);
+         return mapToDTO(updateDrawerAllocation);
+    }
 }
