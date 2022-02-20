@@ -8,4 +8,6 @@ import java.util.List;
 public interface LSDRWRALLOCATRepo extends JpaRepository<LSDRWRALLOCATEntity,Long> {
 
     LSDRWRALLOCATEntity findByACTNUM(String ACTNUM);
+
+    LSDRWRALLOCATEntity deleteByACTNUM(String ACTNUM);
 }

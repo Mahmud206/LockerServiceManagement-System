@@ -2,8 +2,6 @@ package com.LockerService.Locker.Service.Management.Service.ServiceImpl;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
 import com.LockerService.Locker.Service.Management.Entity.LSDRWRALLOCATEntity;
-import com.LockerService.Locker.Service.Management.Entity.LSDRWRRELEntity;
-import com.LockerService.Locker.Service.Management.Exception.ResourceNotFoundException;
 import com.LockerService.Locker.Service.Management.Repository.LSDRWRALLOCATRepo;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRALLOCATService;
 import org.modelmapper.ModelMapper;
@@ -36,12 +34,7 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
         return mapToDTO(lsdrwrallocatEntity);
     }
 
-    //Convert Entity into DTO
-    private LSDRWRALLOCATDto mapToDTO(LSDRWRALLOCATEntity lsdrwrallocatEntity){
 
-        LSDRWRALLOCATDto lsdrwrallocatDto = mapper.map(lsdrwrallocatEntity, LSDRWRALLOCATDto.class);
-        return lsdrwrallocatDto;
-    }
     @Override
     public LSDRWRALLOCATDto createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto) {
         LSDRWRALLOCATEntity lsdrwrallocatEntity= mapToEntity(lsdrwrallocatDto);
@@ -52,8 +45,7 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
 
     @Override
     public LSDRWRALLOCATDto updateDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto,String ACTNUM) {
-         LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.findById(ACTNUM).orElseThrow(() ->new ResourceNotFoundException("LSDRWRALLOCATEntity","ACTNUM",ACTNUM));
-        lsdrwrallocatEntity.setBRANCD(lsdrwrallocatDto.getBRANCD());
+         LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.findByACTNUM(ACTNUM);
         lsdrwrallocatEntity.setACTTIT(lsdrwrallocatDto.getACTTIT());
         lsdrwrallocatEntity.setACTYPE(lsdrwrallocatDto.getACTYPE());
         lsdrwrallocatEntity.setACTNUM(lsdrwrallocatDto.getACTNUM());
@@ -70,24 +62,22 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
     }
     @Override
     public void deleteLSDRWRALLOCATById(String ACTNUM) {
-        LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.findById(ACTNUM).orElseThrow(()->new ResourceNotFoundException("LSDRWRALLOCATEntity","ACTNUM",ACTNUM));
+        LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.deleteByACTNUM(ACTNUM);
         lsdrwrallocatRepo.delete(lsdrwrallocatEntity);
     }
 
+
+    //Convert Entity into DTO
     private LSDRWRALLOCATDto mapToDTO(LSDRWRALLOCATEntity lsdrwrallocatEntity){
+
         LSDRWRALLOCATDto lsdrwrallocatDto = mapper.map(lsdrwrallocatEntity, LSDRWRALLOCATDto.class);
-        lsdrwrallocatEntity.setBRANCD(lsdrwrallocatDto.getBRANCD());
-        lsdrwrallocatEntity.setACTTIT(lsdrwrallocatDto.getACTTIT());
-        lsdrwrallocatEntity.setACTYPE(lsdrwrallocatDto.getACTYPE());
-        lsdrwrallocatEntity.setACTNUM(lsdrwrallocatDto.getACTNUM());
-        lsdrwrallocatEntity.setCUSCOD(lsdrwrallocatDto.getCUSCOD());
-        lsdrwrallocatEntity.setPRDCOD(lsdrwrallocatDto.getPRDCOD());
-        lsdrwrallocatEntity.setSALEVAL(lsdrwrallocatDto.getSALEVAL());
-        lsdrwrallocatEntity.setMARKETVAL(lsdrwrallocatDto.getMARKETVAL());
-        lsdrwrallocatEntity.setCAUTIONAMT(lsdrwrallocatDto.getCAUTIONAMT());
-        lsdrwrallocatEntity.setALLOCATDATE(lsdrwrallocatDto.getALLOCATDATE());
-        lsdrwrallocatEntity.setEXPDATE(lsdrwrallocatDto.getEXPDATE());
-        lsdrwrallocatEntity.setREMARKS(lsdrwrallocatDto.getREMARKS());
         return lsdrwrallocatDto;
     }
+
+    private LSDRWRALLOCATEntity mapToEntity(LSDRWRALLOCATDto lsdrwrallocatDto){
+
+        LSDRWRALLOCATEntity lsdrwrallocatEntity = mapper.map(lsdrwrallocatDto, LSDRWRALLOCATEntity.class);
+        return lsdrwrallocatEntity;
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.LockerService.Locker.Service.Management.Controller;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
-import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRALLOCATService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,18 +28,18 @@ public class LSDRWRALLOCATController {
     }
 
     @PostMapping("/Allocate")
-    public ResponseEntity<LSDRWRALLOCATLDto> createDrawerAllocation(@RequestBody LSDRWRALLOCATLDto lsdrwrallocatDto){
-        return new ResponseEntity<>(lsdrwrrelService.createDrawerAllocation(lsdrwrallocatDto), HttpStatus.CREATED);
+    public ResponseEntity<LSDRWRALLOCATDto> createDrawerAllocation(@RequestBody LSDRWRALLOCATDto lsdrwrallocatDto){
+        return new ResponseEntity<>(lsdrwrallocatService.createDrawerAllocation(lsdrwrallocatDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{ACTNUM}")
-    public ResponseEntity<LSDRWRALLOCATLDto> updateDrawerAllocation(@RequestBody LSDRWRALLOCATLDto lsdrwrallocatDto, @PathVariable(name = "ACTNUM") String ACTNUM){
-        LSDRWRALLOCATLDto lsdrwrrelResponse = lsdrwrrelService.updateDrawerAllocation(lsdrwrallocatDto, ACTNUM);
+    public ResponseEntity<LSDRWRALLOCATDto> updateDrawerAllocation(@RequestBody LSDRWRALLOCATDto lsdrwrallocatDto, @PathVariable(name = "ACTNUM") String ACTNUM){
+        LSDRWRALLOCATDto lsdrwrrelResponse = lsdrwrallocatService.updateDrawerAllocation(lsdrwrallocatDto, ACTNUM);
         return new ResponseEntity<>(lsdrwrrelResponse, HttpStatus.OK);
     }
     @DeleteMapping("/{ACTNUM}")
     public ResponseEntity<String> deleteLSDRWRALLOCATLById(@PathVariable(name="ACTNUM") String ACTNUM){
-        lsdrwrrelService.deleteLSDRWRALLOCATLById(ACTNUM);
+        lsdrwrallocatService.deleteLSDRWRALLOCATById(ACTNUM);
         return new ResponseEntity<>("Locker entity deleted successfully.", HttpStatus.OK);
     }
 
