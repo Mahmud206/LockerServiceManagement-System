@@ -32,5 +32,12 @@ public class LSDRWRALLOCATController {
         return new ResponseEntity<>(lsdrwrrelService.createDrawerAllocation(lsdrwrallocatDto), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{ACTNUM}")
+    public ResponseEntity<LSDRWRALLOCATLDto> updateDrawerAllocation(@RequestBody LSDRWRALLOCATLDto lsdrwrallocatDto, @PathVariable(name = "ACTNUM") String ACTNUM){
+        LSDRWRALLOCATLDto lsdrwrrelResponse = lsdrwrrelService.updateDrawerAllocation(lsdrwrallocatDto, ACTNUM);
+        return new ResponseEntity<>(lsdrwrrelResponse, HttpStatus.OK);
+    }
+    
+
 
 }
