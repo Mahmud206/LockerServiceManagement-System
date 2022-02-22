@@ -79,7 +79,7 @@ public class LSDRWRRELServiceImpl implements LSDRWRRELService {
 
     @Override
     public void deleteDrawerById(long RELID) {
-        LSDRWRRELEntity lsdrwrrelEntity = lsdrwrrelRepo.findById(RELID).orElseThrow(() -> new ResourceNotFoundException("Post", "RELID", RELID));
+        LSDRWRRELEntity lsdrwrrelEntity = lsdrwrrelRepo.findById(RELID).orElseThrow(() -> new ResourceNotFoundException("LSDRWRRELEntity", "RELID", RELID));
         lsdrwrrelRepo.delete(lsdrwrrelEntity);
     }
 
