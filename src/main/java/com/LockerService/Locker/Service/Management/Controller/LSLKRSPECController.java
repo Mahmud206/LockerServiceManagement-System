@@ -1,5 +1,6 @@
 package com.LockerService.Locker.Service.Management.Controller;
 
+import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
 import com.LockerService.Locker.Service.Management.DTO.LSLKRSPECDto;
 import com.LockerService.Locker.Service.Management.Service.LSLKRSPECService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -24,6 +26,14 @@ public class LSLKRSPECController {
     public List<LSLKRSPECDto> GetAllLocker(){
         return lslkrspecService.GetAllLockerInfo();
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/Create")
+    public ResponseEntity<LSLKRSPECDto> createLockerSpecification(@Valid @RequestBody LSLKRSPECDto lslkrspecDto){
+        return new ResponseEntity<>(lslkrspecService.createLockerSpecification(lslkrspecDto), HttpStatus.CREATED);
+
+    }
+
 
     @GetMapping("/{LCKRID}")
     public ResponseEntity<LSLKRSPECDto> getLockerSpecificationInfoById(@PathVariable(name = "LCKRID") long LCKRID){
@@ -44,6 +54,6 @@ public class LSLKRSPECController {
 
         lslkrspecService.deleteLockerSpecificationById(LCKRID);
 
-        return new ResponseEntity<>("Drawer Release  successfully.", HttpStatus.OK);
+        return new ResponseEntity<>("Locker Delete successfully.", HttpStatus.OK);
     }
 }
