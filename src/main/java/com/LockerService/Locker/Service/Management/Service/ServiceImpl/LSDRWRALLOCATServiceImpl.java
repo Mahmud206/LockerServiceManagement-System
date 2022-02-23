@@ -3,6 +3,7 @@ package com.LockerService.Locker.Service.Management.Service.ServiceImpl;
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
 import com.LockerService.Locker.Service.Management.Entity.LSDRWRALLOCATEntity;
 import com.LockerService.Locker.Service.Management.Repository.LSDRWRALLOCATRepo;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRALLOCATService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,17 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
 
 
     @Override
-    public LSDRWRALLOCATDto createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto) {
-        LSDRWRALLOCATEntity lsdrwrallocatEntity= mapToEntity(lsdrwrallocatDto);
-        LSDRWRALLOCATEntity newlsdrwrrel=lsdrwrallocatRepo.save(lsdrwrallocatEntity);
-        LSDRWRALLOCATDto lsdrwrrelResponse = mapToDTO(newlsdrwrrel);
-        return lsdrwrrelResponse;
+    public CommonResponseModel createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        LSDRWRALLOCATEntity lsdrwrallocatEntity = lsdrwrallocatRepo.save(mapper.map(lsdrwrallocatDto, LSDRWRALLOCATEntity.class));
+
+        if (lsdrwrallocatEntity.getALLOCATID() > 0) {
+            commonResponseModel.setResponseCode(1);
+            commonResponseModel.setResponseMessage("Locker Allocate Add Successfully");
+            commonResponseModel.setId(lsdrwrallocatEntity.getALLOCATID());
+        }
+
+        return commonResponseModel;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.LockerService.Locker.Service.Management.Service;
 
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface LSDRWRALLOCATService {
 
     void deleteLSDRWRALLOCATById(String ACTNUM);
 
-    LSDRWRALLOCATDto createDrawerAllocation( LSDRWRALLOCATDto lsdrwrallocatDto);
+    CommonResponseModel createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto);
 
 }

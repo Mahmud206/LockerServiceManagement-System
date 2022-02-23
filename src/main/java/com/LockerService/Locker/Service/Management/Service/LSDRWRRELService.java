@@ -1,12 +1,13 @@
 package com.LockerService.Locker.Service.Management.Service;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 
 import java.util.List;
 
 public interface LSDRWRRELService {
 
-    LSDRWRRELDto createDrawerRelease(LSDRWRRELDto lsdrwrrelDto);
+    CommonResponseModel createDrawerRelease(LSDRWRRELDto lsdrwrrelDto);
 
     List<LSDRWRRELDto> GetAlldrawer();
 

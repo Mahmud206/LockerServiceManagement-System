@@ -5,6 +5,7 @@ import com.LockerService.Locker.Service.Management.DTO.LSLKRSPECDto;
 import com.LockerService.Locker.Service.Management.Entity.LSLKRSPECEntity;
 import com.LockerService.Locker.Service.Management.Exception.ResourceNotFoundException;
 import com.LockerService.Locker.Service.Management.Repository.LSLKRSPECRepo;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSLKRSPECService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,17 @@ public class LSLKRSPECServiceImpl implements LSLKRSPECService {
     }
 
     @Override
-    public LSLKRSPECDto createLockerSpecification(LSLKRSPECDto lslkrspecDto) {
-        LSLKRSPECEntity lslkrspecEntity= mapToEntity(lslkrspecDto);
-        LSLKRSPECEntity newLockerSpecification=lslkrspecRepo.save(lslkrspecEntity);
-        LSLKRSPECDto LockerSpecificationResponse = mapToDTO(newLockerSpecification);
-        return LockerSpecificationResponse;
+    public CommonResponseModel createLockerSpecification(LSLKRSPECDto lslkrspecDto) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        LSLKRSPECEntity lslkrspecEntity = lslkrspecRepo.save(mapper.map(lslkrspecDto, LSLKRSPECEntity.class));
+
+        if (lslkrspecEntity.getLCKRID() > 0) {
+            commonResponseModel.setResponseCode(1);
+            commonResponseModel.setResponseMessage("Locker Specification Info  Save Successfully");
+            commonResponseModel.setId(lslkrspecEntity.getLCKRID());
+        }
+
+        return commonResponseModel;
     }
 
     @Override

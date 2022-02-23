@@ -4,6 +4,7 @@ import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
 import com.LockerService.Locker.Service.Management.Entity.LSDRWRRELEntity;
 import com.LockerService.Locker.Service.Management.Exception.ResourceNotFoundException;
 import com.LockerService.Locker.Service.Management.Repository.LSDRWRRELRepo;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRRELService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,8 @@ public class LSDRWRRELServiceImpl implements LSDRWRRELService {
     }
 
     @Override
-    public LSDRWRRELDto createDrawerRelease(LSDRWRRELDto lsdrwrrelDto) {
-
+    public CommonResponseModel createDrawerRelease(LSDRWRRELDto lsdrwrrelDto) {
+/*
         LSDRWRRELEntity lsdrwrrelEntity=mapToEntity(lsdrwrrelDto);
         lsdrwrrelEntity.setOPRBRANCD("A01");
         lsdrwrrelEntity.setBRANCD("D12");
@@ -45,6 +46,19 @@ public class LSDRWRRELServiceImpl implements LSDRWRRELService {
         //convert entity to DTO
         LSDRWRRELDto ReleaseResponse = mapToDTO(newRelease);
         return ReleaseResponse;
+        */
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        LSDRWRRELEntity lsdrwrrelEntity = lsdrwrrelRepo.save(mapper.map(lsdrwrrelDto, LSDRWRRELEntity.class));
+
+        if (lsdrwrrelEntity.getRELID() > 0) {
+            commonResponseModel.setResponseCode(1);
+            commonResponseModel.setResponseMessage("Drawer Release Save Successfully");
+            commonResponseModel.setId(lsdrwrrelEntity.getRELID());
+        }
+
+        return commonResponseModel;
+
+
     }
 
     @Override
