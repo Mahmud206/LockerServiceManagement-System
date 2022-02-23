@@ -52,7 +52,7 @@ public class LSDRWRRELController {
         LSDRWRRELDto DrawerResponse = lsdrwrrelService.updateDrawerRelease(lsdrwrrelDto,RELID);
         return new ResponseEntity<>(DrawerResponse, HttpStatus.OK);
     }
-/*
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{RELID}")
     public ResponseEntity<String> deleteDrawerRelease(@PathVariable(name = "RELID") long RELID){
@@ -62,11 +62,13 @@ public class LSDRWRRELController {
         return new ResponseEntity<>("Drawer Release  successfully.", HttpStatus.OK);
     }
 
- */
+ /*
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{RELID}")
     private CommonResponseModel deleteDrawerRelease(@PathVariable(name = "RELID") long RELID){
         return lsdrwrrelService.deleteDrawerById(RELID);
     }
+
+  */
 
 }

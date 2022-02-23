@@ -46,16 +46,18 @@ public class LSDRWRALLOCATController {
         LSDRWRALLOCATDto lsdrwrrelResponse = lsdrwrallocatService.updateDrawerAllocation(lsdrwrallocatDto, ACTNUM);
         return new ResponseEntity<>(lsdrwrrelResponse, HttpStatus.OK);
     }
-/*    @DeleteMapping("/{ACTNUM}")
-    public ResponseEntity<String> deleteLSDRWRALLOCATLById(@PathVariable(name="ACTNUM") String ACTNUM){
-        lsdrwrallocatService.deleteLSDRWRALLOCATById(ACTNUM);
-        return new ResponseEntity<>("Locker entity deleted successfully.", HttpStatus.OK);
-    }*/
-
+  @DeleteMapping("/{ALLOCATID}")
+    public ResponseEntity<String> deleteLSDRWRALLOCATLById(@PathVariable(name="ALLOCATID") long ALLOCATID){
+        lsdrwrallocatService.deleteLSDRWRALLOCATById(ALLOCATID);
+        return new ResponseEntity<>("Locker Allocate Information deleted successfully.", HttpStatus.OK);
+    }
+/*
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{ALLOCATID}")
     private CommonResponseModel deleteLSDRWRALLOCATLById(@PathVariable(name="ALLOCATID") long ALLOCATID){
         return lsdrwrallocatService.deleteLSDRWRALLOCATById(ALLOCATID);
     }
+
+ */
 
 }

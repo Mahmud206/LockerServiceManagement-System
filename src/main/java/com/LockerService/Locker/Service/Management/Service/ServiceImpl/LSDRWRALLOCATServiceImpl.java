@@ -2,6 +2,8 @@ package com.LockerService.Locker.Service.Management.Service.ServiceImpl;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
 import com.LockerService.Locker.Service.Management.Entity.LSDRWRALLOCATEntity;
+import com.LockerService.Locker.Service.Management.Entity.LSDRWRRELEntity;
+import com.LockerService.Locker.Service.Management.Exception.ResourceNotFoundException;
 import com.LockerService.Locker.Service.Management.Repository.LSDRWRALLOCATRepo;
 import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRALLOCATService;
@@ -70,17 +72,9 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
     }
 
     @Override
-    public CommonResponseModel deleteLSDRWRALLOCATById(long ALLOCATID) {
-        CommonResponseModel commonResponseModel = new CommonResponseModel();
-        Optional<LSDRWRALLOCATEntity> lsdrwrallocatEntity = lsdrwrallocatRepo.findById(ALLOCATID);
-        if (!lsdrwrallocatEntity.isPresent()) {
-            commonResponseModel.setResponseMessage("No Data Found "+ALLOCATID);
-            return commonResponseModel;
-        }
-        lsdrwrallocatRepo.delete(lsdrwrallocatEntity.get());
-        commonResponseModel.setResponseCode(1);
-        commonResponseModel.setResponseMessage("Locker Allocate Information Delete Successfully ");
-        return commonResponseModel;
+    public void deleteLSDRWRALLOCATById(long ALLOCATID) {
+        LSDRWRALLOCATEntity lsdrwrallocatEntity = lsdrwrallocatRepo.findById(ALLOCATID).orElseThrow(() -> new ResourceNotFoundException("LSDRWRALLOCATEntity", "ALLOCATID", ALLOCATID));
+        lsdrwrallocatRepo.delete(lsdrwrallocatEntity);
     }
 
 
@@ -97,4 +91,19 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
         return lsdrwrallocatEntity;
     }
 
+    /*
+    @Override
+    public CommonResponseModel deleteLSDRWRALLOCATById(String ALLOCATID) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        Optional<LSDRWRALLOCATEntity> lsdrwrallocatEntity = lsdrwrallocatRepo.findBy(ALLOCATID);
+        if (!lsdrwrallocatEntity.isPresent()) {
+            commonResponseModel.setResponseMessage("No Data Found "+ALLOCATID);
+            return commonResponseModel;
+        }
+        lsdrwrallocatRepo.delete(lsdrwrallocatEntity.get());
+        commonResponseModel.setResponseCode(1);
+        commonResponseModel.setResponseMessage("Location  delete Successfully ");
+        return commonResponseModel;
+    }
+     */
 }

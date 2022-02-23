@@ -54,21 +54,22 @@ public class LSLKRSPECController {
         LSLKRSPECDto lslkrspecDtoResponse = lslkrspecService.updateLockerSpecificationById(lslkrspecDto,LCKRID);
         return new ResponseEntity<>(lslkrspecDtoResponse, HttpStatus.OK);
     }
-/*
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{LCKRID}")
     public ResponseEntity<String> deleteDrawerRelease(@PathVariable(name = "LCKRID") long LCKRID){
 
         lslkrspecService.deleteLockerSpecificationById(LCKRID);
 
-        return new ResponseEntity<>("Locker Delete successfully.", HttpStatus.OK);
+        return new ResponseEntity<>("Locker Information Delete successfully.", HttpStatus.OK);
     }
 
- */
+
+    /*
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{LCKRID}")
     public CommonResponseModel deleteDrawerRelease(@PathVariable(name = "LCKRID") long LCKRID){
         return lslkrspecService.deleteLockerSpecificationById(LCKRID);
     }
-
+     */
 }

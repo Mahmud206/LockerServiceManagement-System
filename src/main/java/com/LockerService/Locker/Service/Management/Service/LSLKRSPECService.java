@@ -15,5 +15,9 @@ public interface LSLKRSPECService {
 
     LSLKRSPECDto updateLockerSpecificationById(LSLKRSPECDto lslkrspecDto, long LCKRID);
 
+    void deleteLockerSpecificationById(long LCKRID);
+
+    /*
     CommonResponseModel deleteLockerSpecificationById(long LCKRID);
+     */
 }

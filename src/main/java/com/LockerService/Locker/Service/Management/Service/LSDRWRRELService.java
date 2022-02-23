@@ -15,5 +15,9 @@ public interface LSDRWRRELService {
 
     LSDRWRRELDto updateDrawerRelease(LSDRWRRELDto lsdrwrrelDto, long RELID);
 
+    void deleteDrawerById(long RELID);
+
+    /*
     CommonResponseModel deleteDrawerById(long RELID);
+     */
 }
