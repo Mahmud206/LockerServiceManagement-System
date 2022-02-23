@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,9 +78,17 @@ public class LSLKRSPECServiceImpl implements LSLKRSPECService {
     }
 
     @Override
-    public void deleteLockerSpecificationById(long LCKRID) {
-        LSLKRSPECEntity lslkrspecEntity = lslkrspecRepo.findById(LCKRID).orElseThrow(() -> new ResourceNotFoundException("LSLKRSPECEntity", "LCKRID", LCKRID));
-        lslkrspecRepo.delete(lslkrspecEntity);
+    public CommonResponseModel deleteLockerSpecificationById(long LCKRID) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        Optional<LSLKRSPECEntity> lslkrspecEntity = lslkrspecRepo.findById(LCKRID);
+        if (!lslkrspecEntity.isPresent()) {
+            commonResponseModel.setResponseMessage("No Data Found "+LCKRID);
+            return commonResponseModel;
+        }
+        lslkrspecRepo.delete(lslkrspecEntity.get());
+        commonResponseModel.setResponseCode(1);
+        commonResponseModel.setResponseMessage("Location  delete Successfully ");
+        return commonResponseModel;
     }
 
     //Convert Entity into DTO

@@ -14,7 +14,7 @@ public interface LSDRWRALLOCATService {
 
     LSDRWRALLOCATDto updateDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto,String ACTNUM);
 
-    void deleteLSDRWRALLOCATById(String ACTNUM);
+    CommonResponseModel deleteLSDRWRALLOCATById(long ALLOCATID);
 
     CommonResponseModel createDrawerAllocation(LSDRWRALLOCATDto lsdrwrallocatDto);
 

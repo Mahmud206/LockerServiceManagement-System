@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class LSDRWRRELServiceImpl implements LSDRWRRELService {
@@ -92,9 +93,17 @@ public class LSDRWRRELServiceImpl implements LSDRWRRELService {
     }
 
     @Override
-    public void deleteDrawerById(long RELID) {
-        LSDRWRRELEntity lsdrwrrelEntity = lsdrwrrelRepo.findById(RELID).orElseThrow(() -> new ResourceNotFoundException("LSDRWRRELEntity", "RELID", RELID));
-        lsdrwrrelRepo.delete(lsdrwrrelEntity);
+    public CommonResponseModel deleteDrawerById(long RELID) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        Optional<LSDRWRRELEntity> lsdrwrrelEntity = lsdrwrrelRepo.findById(RELID);
+        if (!lsdrwrrelEntity.isPresent()) {
+            commonResponseModel.setResponseMessage("No Data Found "+RELID);
+            return commonResponseModel;
+        }
+        lsdrwrrelRepo.delete(lsdrwrrelEntity.get());
+        commonResponseModel.setResponseCode(1);
+        commonResponseModel.setResponseMessage("Drawer Release Info delete Successfully ");
+        return commonResponseModel;
     }
 
     private LSDRWRRELDto mapToDTO(LSDRWRRELEntity lsdrwrrelEntity){

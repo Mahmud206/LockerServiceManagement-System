@@ -1,6 +1,7 @@
 package com.LockerService.Locker.Service.Management.Controller;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSDRWRRELService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,20 @@ public class LSDRWRRELController {
 
     @Autowired
     private LSDRWRRELService lsdrwrrelService;
-
+/*
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/Create")
     public ResponseEntity<LSDRWRRELDto> createDRAWERRelease(@Valid @RequestBody LSDRWRRELDto lsdrwrrelDto){
         return new ResponseEntity<>(lsdrwrrelService.createDrawerRelease(lsdrwrrelDto), HttpStatus.CREATED);
 
     }
+*/
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/Create")
+    public CommonResponseModel createDRAWERRelease(@Valid @RequestBody LSDRWRRELDto lsdrwrrelDto){
+        return lsdrwrrelService.createDrawerRelease(lsdrwrrelDto);
+    }
+
 
     @GetMapping("/get")
     public List<LSDRWRRELDto> GetRelease(){
@@ -44,7 +52,7 @@ public class LSDRWRRELController {
         LSDRWRRELDto DrawerResponse = lsdrwrrelService.updateDrawerRelease(lsdrwrrelDto,RELID);
         return new ResponseEntity<>(DrawerResponse, HttpStatus.OK);
     }
-
+/*
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{RELID}")
     public ResponseEntity<String> deleteDrawerRelease(@PathVariable(name = "RELID") long RELID){
@@ -53,4 +61,12 @@ public class LSDRWRRELController {
 
         return new ResponseEntity<>("Drawer Release  successfully.", HttpStatus.OK);
     }
+
+ */
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{RELID}")
+    private CommonResponseModel deleteDrawerRelease(@PathVariable(name = "RELID") long RELID){
+        return lsdrwrrelService.deleteDrawerById(RELID);
+    }
+
 }

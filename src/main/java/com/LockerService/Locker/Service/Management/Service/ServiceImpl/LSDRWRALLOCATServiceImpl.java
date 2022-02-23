@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,10 +68,19 @@ public class LSDRWRALLOCATServiceImpl implements LSDRWRALLOCATService {
          LSDRWRALLOCATEntity updateDrawerAllocation = lsdrwrallocatRepo.save(lsdrwrallocatEntity);
          return mapToDTO(updateDrawerAllocation);
     }
+
     @Override
-    public void deleteLSDRWRALLOCATById(String ACTNUM) {
-        LSDRWRALLOCATEntity lsdrwrallocatEntity= lsdrwrallocatRepo.deleteByACTNUM(ACTNUM);
-        lsdrwrallocatRepo.delete(lsdrwrallocatEntity);
+    public CommonResponseModel deleteLSDRWRALLOCATById(long ALLOCATID) {
+        CommonResponseModel commonResponseModel = new CommonResponseModel();
+        Optional<LSDRWRALLOCATEntity> lsdrwrallocatEntity = lsdrwrallocatRepo.findById(ALLOCATID);
+        if (!lsdrwrallocatEntity.isPresent()) {
+            commonResponseModel.setResponseMessage("No Data Found "+ALLOCATID);
+            return commonResponseModel;
+        }
+        lsdrwrallocatRepo.delete(lsdrwrallocatEntity.get());
+        commonResponseModel.setResponseCode(1);
+        commonResponseModel.setResponseMessage("Locker Allocate Information Delete Successfully ");
+        return commonResponseModel;
     }
 
 

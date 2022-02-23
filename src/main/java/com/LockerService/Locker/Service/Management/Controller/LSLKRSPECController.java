@@ -2,6 +2,7 @@ package com.LockerService.Locker.Service.Management.Controller;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRRELDto;
 import com.LockerService.Locker.Service.Management.DTO.LSLKRSPECDto;
+import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
 import com.LockerService.Locker.Service.Management.Service.LSLKRSPECService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,18 @@ public class LSLKRSPECController {
     public List<LSLKRSPECDto> GetAllLocker(){
         return lslkrspecService.GetAllLockerInfo();
     }
-
+/*
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/Create")
     public ResponseEntity<LSLKRSPECDto> createLockerSpecification(@Valid @RequestBody LSLKRSPECDto lslkrspecDto){
         return new ResponseEntity<>(lslkrspecService.createLockerSpecification(lslkrspecDto), HttpStatus.CREATED);
 
+    }
+*/
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/Create")
+    public CommonResponseModel createLockerSpecification(@Valid @RequestBody LSLKRSPECDto lslkrspecDto){
+        return lslkrspecService.createLockerSpecification(lslkrspecDto);
     }
 
 
@@ -47,7 +54,7 @@ public class LSLKRSPECController {
         LSLKRSPECDto lslkrspecDtoResponse = lslkrspecService.updateLockerSpecificationById(lslkrspecDto,LCKRID);
         return new ResponseEntity<>(lslkrspecDtoResponse, HttpStatus.OK);
     }
-
+/*
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{LCKRID}")
     public ResponseEntity<String> deleteDrawerRelease(@PathVariable(name = "LCKRID") long LCKRID){
@@ -56,4 +63,12 @@ public class LSLKRSPECController {
 
         return new ResponseEntity<>("Locker Delete successfully.", HttpStatus.OK);
     }
+
+ */
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{LCKRID}")
+    public CommonResponseModel deleteDrawerRelease(@PathVariable(name = "LCKRID") long LCKRID){
+        return lslkrspecService.deleteLockerSpecificationById(LCKRID);
+    }
+
 }
