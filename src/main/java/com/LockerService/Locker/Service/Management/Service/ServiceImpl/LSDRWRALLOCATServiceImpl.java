@@ -2,7 +2,6 @@ package com.LockerService.Locker.Service.Management.Service.ServiceImpl;
 
 import com.LockerService.Locker.Service.Management.DTO.LSDRWRALLOCATDto;
 import com.LockerService.Locker.Service.Management.Entity.LSDRWRALLOCATEntity;
-import com.LockerService.Locker.Service.Management.Entity.LSDRWRRELEntity;
 import com.LockerService.Locker.Service.Management.Exception.ResourceNotFoundException;
 import com.LockerService.Locker.Service.Management.Repository.LSDRWRALLOCATRepo;
 import com.LockerService.Locker.Service.Management.ResponsiveModel.CommonResponseModel;
@@ -11,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
